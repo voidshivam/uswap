@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    color-scheme: light;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-canvas text-ink font-sans antialiased;
+    font-feature-settings: "cv05", "ss01";
+  }
+
+  * {
+    @apply border-line;
+  }
+
+  /* Calm, branded focus ring */
+  :focus-visible {
+    @apply outline-none ring-2 ring-indigo/40 ring-offset-1 ring-offset-canvas;
+  }
+
+  /* Strip number-input spinners */
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+
+  ::selection {
+    background: #E0E3FF;
+    color: #1A1D2E;
+  }
+}
+
+@layer utilities {
+  /* Soft mesh background used behind the swap + landing surfaces */
+  .bg-mesh {
+    background-image:
+      radial-gradient(620px circle at 12% 8%, rgba(91, 110, 255, 0.10), transparent 55%),
+      radial-gradient(560px circle at 88% 22%, rgba(61, 220, 151, 0.10), transparent 55%),
+      radial-gradient(700px circle at 70% 100%, rgba(91, 110, 255, 0.07), transparent 60%);
+  }
+
+  .text-gradient {
+    background: linear-gradient(120deg, #5B6EFF 0%, #3DDC97 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Thin, unobtrusive scrollbars inside modals/lists */
+  .scroll-soft {
+    scrollbar-width: thin;
+    scrollbar-color: #D7DAE3 transparent;
+  }
+  .scroll-soft::-webkit-scrollbar {
+    width: 6px;
+  }
+  .scroll-soft::-webkit-scrollbar-thumb {
+    background: #D7DAE3;
+    border-radius: 999px;
+  }
+}
