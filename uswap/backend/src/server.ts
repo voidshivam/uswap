@@ -513,7 +513,7 @@ app.use((err: unknown, _req: Request, res: Response, _next: NextFunction) => {
 // Listen
 // ---------------------------------------------------------------------------
 const currentDir = path.dirname(fileURLToPath(import.meta.url));
-const frontendDist = path.resolve(currentDir, "../../frontend/dist");
+const frontendDist = path.join(process.cwd(), "frontend/dist");
 
 app.use(express.static(frontendDist));
 
