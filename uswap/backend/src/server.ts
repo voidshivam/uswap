@@ -10,7 +10,9 @@
 //
 // All provider calls happen here — the frontend never sees the API key.
 // Transactions are persisted in SQLite, so everything survives a restart.
-
+// @ts-ignore
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import "dotenv/config";
 import cors from "cors";
 import express, { type NextFunction, type Request, type Response } from "express";
@@ -510,7 +512,15 @@ app.use((err: unknown, _req: Request, res: Response, _next: NextFunction) => {
 // ---------------------------------------------------------------------------
 // Listen
 // ---------------------------------------------------------------------------
+const currentDir = path.dirname(fileURLToPath(import.meta.url));
+const frontendDist = path.resolve(currentDir, "../../frontend/dist");
 
+app.use(express.static(frontendDist));
+
+app.get("*", (req, res, next) => {
+  if (req.path.startsWith("/api")) return next();
+  res.sendFile(path.join(frontendDist, "index.html"));
+});
 const server = app.listen(PORT, () => {
   console.log(`[server] USwap API listening on port ${PORT}`);
   console.log(
